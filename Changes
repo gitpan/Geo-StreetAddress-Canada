@@ -3,3 +3,7 @@ Revision history for Perl extension Geo::StreetAddress::Canada.
 1.00  Sept 10 2013
 
     Original Release
+
+1.01  Sept 11 2013
+
+    Fix for province listing not recognizing traditional short form, ie: Ont ->  Ontario, Alta -> Alberta.

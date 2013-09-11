@@ -4,7 +4,7 @@ use 5.008_001;
 use strict;
 use warnings;
 
-our $VERSION = '1.00';
+our $VERSION = '1.01';
 
 use base 'Class::Data::Inheritable';
 
@@ -303,19 +303,35 @@ postal abbreviations.
 =cut
 
 our %Province_Code = (
-    "alberta"					=> "AB",
-	"british columbia" 			=> "BC",
-	"manitoba"					=> "MB",
-	"new brunswick"				=> "NB",
+    	"alberta"			=> "AB",
+	"british columbia" 		=> "BC",
+	"manitoba"			=> "MB",
+	"new brunswick"			=> "NB",
 	"newfoundland and labrador"	=> "NL",
 	"northwest territories"		=> "NT",
-	"nova scotia"				=> "NS",
-	"nunavut"					=> "NU",
-	"ontario"					=> "ON",
+	"nova scotia"			=> "NS",
+	"nunavut"			=> "NU",
+	"ontario"			=> "ON",
 	"prince edward island"		=> "PE",
-	"quebec"					=> "PQ",
-	"saskatchewan"				=> "SK",
-	"yukon"						=> "YT",	
+	"quebec"			=> "PQ",
+	"saskatchewan"			=> "SK",
+	"yukon"				=> "YT",
+	"alta"				=> "AB",
+	"b.c."				=> "BC",
+	"man"				=> "MB",
+	"n.b."				=> "NB",
+	"n.f."				=> "NL",
+	"n.w.t."			=> "NT",
+	"nwt"				=> "NT",
+	"n.s."				=> "NS",
+	"ont"				=> "ON",
+	"p.e.i"				=> "PE",
+	"pei"				=> "PE",
+	"pq"				=> "QC",
+	"que"				=> "QC",
+	"sask"				=> "SK",
+	"yuk"				=> "YT",
+	"y.t."				=> "YT",		
 );
 
 

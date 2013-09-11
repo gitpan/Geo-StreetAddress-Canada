@@ -3,8 +3,8 @@
    "author" : [
       "Scott Burlovich <teedot@gmail.com>"
    ],
-   "dynamic_config" : 0,
-   "generated_by" : "ExtUtils::MakeMaker version 6.56, CPAN::Meta::Converter version 2.132140",
+   "dynamic_config" : 1,
+   "generated_by" : "ExtUtils::MakeMaker version 6.74, CPAN::Meta::Converter version 2.132140",
    "license" : [
       "unknown"
    ],
@@ -37,5 +37,5 @@
       }
    },
    "release_status" : "stable",
-   "version" : "1.00"
+   "version" : "1.01"
 }

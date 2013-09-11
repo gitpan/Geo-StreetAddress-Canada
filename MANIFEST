@@ -5,3 +5,4 @@ README
 t/01_parser.t
 Canada.pm
 META.yml                                 Module meta-data (added by MakeMaker)
+META.json                                Module JSON meta-data (added by MakeMaker)
