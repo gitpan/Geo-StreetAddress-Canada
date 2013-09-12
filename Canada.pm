@@ -4,7 +4,7 @@ use 5.008_001;
 use strict;
 use warnings;
 
-our $VERSION = '1.00';
+our $VERSION = '1.04';
 
 use base 'Class::Data::Inheritable';
 
