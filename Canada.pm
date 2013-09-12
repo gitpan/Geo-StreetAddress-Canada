@@ -4,7 +4,7 @@ use 5.008_001;
 use strict;
 use warnings;
 
-our $VERSION = '1.01';
+our $VERSION = '1.00';
 
 use base 'Class::Data::Inheritable';
 
@@ -17,7 +17,7 @@ Geo::StreetAddress::Canada - Perl extension for parsing Canadian street addresse
   use Geo::StreetAddress::Canada;
 
   $hashref = Geo::StreetAddress::Canada->parse_location(
-                "151 Front Street West, Toronto, Ontario M1M1 M1" );
+                "151 Front Street West, Toronto, Ontario M1M 1M1" );
 
   $hashref = Geo::StreetAddress::Canada->parse_location(
                 "Front & York, Toronto, Ontario" );
@@ -43,7 +43,7 @@ directional prefixes and suffixes, fractional building numbers, building units,
 grid-based addresses, postal codes, and all of the official Canada Post abbreviations 
 for street types, province names and secondary unit designators. Please note that this
 extension will only return data in English. If you are looking for French language support,
-Please see Geo::StreetAddress::FR. Patches are welcome if someone wishes to combine the two!
+Please see Geo::StreetAddress::FR(3pm). Patches are welcome if someone wishes to combine the two!
 
 =head1 RETURN VALUES
 
@@ -177,7 +177,7 @@ our %Street_Type = (
 	acres		=> "acres",
 	alley		=> "alley",
 	avenue 		=> "ave",
-	bay			=> "bay",
+	bay		=> "bay",
 	beach		=> "beach",
 	bend		=> "bend",
 	boulevard	=> "blvd",
@@ -203,7 +203,7 @@ our %Street_Type = (
 	diversion 	=> "divers",
 	downs		=> "downs",
 	drive		=> "dr",
-	end			=> "end",
+	end		=> "end",
 	esplanade	=> "espl",
 	estates		=> "estate",
 	expressway	=> "expy",
@@ -229,7 +229,7 @@ our %Street_Type = (
 	hollow		=> "hollow",
 	inlet		=> "inlet",
 	island		=> "island",
-	key			=> "key",
+	key		=> "key",
 	knoll		=> "knoll",
 	landing		=> "landng",
 	lane		=> "lane",
@@ -268,8 +268,8 @@ our %Street_Type = (
 	ridge		=> "ridge",
 	rise		=> "rise",
 	road		=> "rd",
-	row			=> "row",
-	run			=> "run",
+	row		=> "row",
+	run		=> "run",
 	square		=> "sq",
 	street		=> "st",
 	subdivision	=> "subdiv",
@@ -280,13 +280,13 @@ our %Street_Type = (
 	trail		=> "trail",
 	turnabout	=> "trnabt",
 	vale		=> "vale",
-	via			=> "via",
+	via		=> "via",
 	view		=> "view",
 	village		=> "villge",
 	villas		=> "villas",
 	vista		=> "vista",
 	walk		=> "walk",
-	way			=> "way",
+	way		=> "way",
 	wharf		=> "wharf",
 	wood		=> "wood",
 	wynd		=> "wynd",
@@ -331,7 +331,8 @@ our %Province_Code = (
 	"que"				=> "QC",
 	"sask"				=> "SK",
 	"yuk"				=> "YT",
-	"y.t."				=> "YT",		
+	"y.t."				=> "YT",	
+	
 );
 
 
@@ -526,32 +527,36 @@ sub init {
         /ix;
 
 	$Addr_Match{address} = qr/
-        ^
-        [^\w\#]*    # skip non-word chars except # (eg unit)
-        (  $Addr_Match{number} )\W*
-        (?:$Addr_Match{fraction}\W*)?
-           $Addr_Match{street}\W+
-        (?:$Addr_Match{sec_unit}\W+)?
-           $Addr_Match{place}
-        \W*         # require on non-word chars at end
-        $           # right up to end of string
+        (?:^
+			[^\w\#]*    # skip non-word chars except # (eg unit)
+			(  $Addr_Match{number} )\W*
+			(?:$Addr_Match{fraction}\W*)?
+			   $Addr_Match{street}\W+
+			(?:$Addr_Match{sec_unit}\W+)?
+			   $Addr_Match{place}
+			\W*         # require on non-word chars at end
+			$
+		)           # right up to end of string
         /ix;
 
     my $sep = qr/(?:\W+|\Z)/;
 
     $Addr_Match{informal_address} = qr/
-        ^
-        \s*         # skip leading whitespace
-        (?:$Addr_Match{sec_unit} $sep)?
-        (?:$Addr_Match{number})?\W*
-        (?:$Addr_Match{fraction}\W*)?
-           $Addr_Match{street} $sep
-        (?:$Addr_Match{sec_unit} $sep)?
-        (?:$Addr_Match{place})?
+        (?:^
+			\s*         # skip leading whitespace
+			(?:$Addr_Match{sec_unit} $sep)?
+			(?:$Addr_Match{number})?\W*
+			(?:$Addr_Match{fraction}\W*)?
+			   $Addr_Match{street} $sep
+			(?:$Addr_Match{sec_unit} $sep)?
+			(?:$Addr_Match{place})?
+		)
         # don't require match to reach end of string
         /ix;
 
-    $Addr_Match{intersection} = qr/^\W*
+    $Addr_Match{intersection} = qr/
+	(?:
+	^\W*
            $Addr_Match{street}\W*?
 
         \s+$Addr_Match{corner}\s+
@@ -561,7 +566,10 @@ sub init {
             (?{ exists $_{$_} and $_{$_.2} = delete $_{$_} for (qw{prefix street type suffix})})
 
            $Addr_Match{place}
-        \W*$/ix;
+        \W*$
+	)
+	/ix;
+		
 }
 
 =head2 parse_location
@@ -739,7 +747,7 @@ for your purposes. If this turns out to be the case, please let me know.
 Geo::StreetAddress::Canada does B<NOT> perform Canada Post certified address normalization.
 
 B<French addresses are not supported. This extension will only output data in English.>
-If you require support for French addresses, please see Geo::StreetAddress::FR. Patches are welcome 
+If you require support for French addresses, please see Geo::StreetAddress::FR(3pm). Patches are welcome 
 to combine the two!
 
     
@@ -773,3 +781,4 @@ at your option, any later version of Perl 5 you may have available.
 
 =cut
 # vim: ts=8:sw=4:et
+

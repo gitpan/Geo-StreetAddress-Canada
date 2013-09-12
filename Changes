@@ -11,3 +11,7 @@ Revision history for Perl extension Geo::StreetAddress::Canada.
 1.02  Sept 12 2013
 
 	Fix regex codeblocks for Perl 5.18.1 compatibility.
+
+1.03  Sept 12 2013
+
+	Missing code in 1.02, fixed in 1.03. Accidentally uploaded incorrect archive.
